@@ -5,17 +5,14 @@ const csvtojsonV2 = require('csvtojson/v2');
 
 const convert = () => {
 
-    const csvFilePath = 'C:/Users/m.iliadou/Desktop/customer-data.csv';
-    const folderName = 'results'
-
+    const csvFilePath = './customer-data.csv';
     const processData = (resp) => {
-        console.log('Creating the directory...')
+        console.log('Creating the file...')
         csvtojsonV2()
             .fromFile(csvFilePath)
             .then((jsonObject) => {
-                console.log(jsonObject)
-                fs.mkdirSync(folderName)
-                fs.writeFileSync(path.join('C:/Projects/csvToJson', folderName, 'results.json'), JSON.stringify(jsonObject), 'utf8')
+                var formattedString = JSON.stringify(jsonObject).split(",").join(",\n")
+                fs.writeFileSync(path.join('C:/Projects/csvToJson', 'customer-data.json'), formattedString, 'utf8')
             })
     }
 
